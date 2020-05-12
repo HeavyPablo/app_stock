@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<div id="content-wrapper" class="d-flex flex-column mt-4" th:fragment="content">
+    <div class="content">
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Productos</h1>
+            <p class="mb-4">La tabla contiene los datos de todos los productos registrados, tanto disponibles como no disponibles.</p>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista de Productos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered" id="dataTable" width="100%" role="grid" cellspacing="0" aria-describedby="dataTable_info" style="width: 100%">
+                                        <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Categoria</th>
+                                            <th>Cantidad</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <th:block th:each="producto : ${productos}">
+                                            <tr>
+                                                <td th:text="${producto.nombre}"></td>
+                                                <td th:text="${producto.descripcion}"></td>
+                                                <td th:text="${producto.categoria.nombre}"></td>
+                                                <td th:text="${producto.cantidad}"></td>
+                                                <td>
+                                                    <div class="col-12">
+                                                        <div class="row justify-content-center">
+                                                            <a th:href="${producto.id}" class="btn btn-info btn-circle btn-sm mx-2">
+                                                                <i class="fas fa-eye"></i>
+                                                            </a>
+                                                            <a th:href="${'editar/' + producto.id}" class="btn btn-warning btn-circle btn-sm mx-2">
+                                                                <i class="fas fa-edit"></i>
+                                                            </a>
+                                                            <button class="btn btn-danger btn-circle btn-sm mx-2" th:onclick="'eliminar(' + ${producto.id} +')'">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </th:block>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

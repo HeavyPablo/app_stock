@@ -1,0 +1,73 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<div id="content-wrapper" class="d-flex flex-column mt-4" th:fragment="content">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h5 th:text="${producto.nombre}"></h5>
+                </div>
+                <div class="card-body">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-between">
+                            <div class="col-4">
+                                <img class="img-thumbnail" src="" alt="" style="min-width: 100%">
+                            </div>
+
+                            <div class="topbar-divider d-none d-sm-block" style="border-right: 1px solid #e3e6f0; width:0"></div>
+
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label>Id</label>
+                                    <input type="text" class="form-control form-control-user" th:field="${producto.id}" disabled>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <label>Nombre de producto</label>
+                                        <input type="text" class="form-control form-control-user" th:value="${producto.nombre}" disabled>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Stock</label>
+                                        <input type="number" class="form-control form-control-user" th:value="${producto.cantidad}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Categoría</label>
+                                    <select class="form-control form-control-user" th:field="${producto.categoria.id}" disabled>
+                                        <option th:value="${producto.categoria.id}" th:text="${producto.categoria.nombre}" disabled></option>
+                                    </select>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <label>Fecha de creación</label>
+                                        <input type="text" class="form-control form-control-user" th:value="${producto.fechaCreacion}" disabled>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label>Última actualización</label>
+                                        <input type="text" class="form-control form-control-user" th:value="${producto.fechaActualizacion}" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <textarea rows="4" class="form-control form-control-user" th:text="${producto.descripcion}" disabled></textarea>
+                                </div>
+                                <a th:href="@{'/productos/editar/' + ${producto.id}}" class="btn btn-warning btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-edit"></i>
+                                            </span>
+                                    <span class="text">Editar</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
