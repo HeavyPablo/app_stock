@@ -2,26 +2,31 @@ package com.restaurante.app_stock.controllers;
 
 import com.restaurante.app_stock.models.Categoria;
 import com.restaurante.app_stock.models.Producto;
-import com.restaurante.app_stock.repository.CategoriaRepository;
-import com.restaurante.app_stock.repository.ProductoRepository;
 import com.restaurante.app_stock.service.CategoriaService;
+import com.restaurante.app_stock.service.FileService;
 import com.restaurante.app_stock.service.ProductoService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -31,6 +36,8 @@ public class IndexController {
     private ProductoService productoService;
     @Autowired
     private CategoriaService categoriaService;
+    @Autowired
+    private FileService fileService;
 
     final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
@@ -77,12 +84,21 @@ public class IndexController {
     }
 
     @PostMapping("/productos/agregar/post")
-    public String agregarPost(@Valid Producto producto) {
+    public String agregarPost(@Valid Producto producto, @RequestParam("file") MultipartFile file) {
+        String pathImagen = "";
 
+        if (!file.isEmpty()) {
+            try {
+                pathImagen = fileService.saveFile(file);
+            } catch (Exception e) {
+                return null;
+            }
+        }
 
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
+        producto.setImagen(pathImagen);
         producto.setFechaActualizacion(dateFormat.format(date));
         producto.setFechaCreacion(dateFormat.format(date));
 
@@ -121,10 +137,17 @@ public class IndexController {
     }
 
     @PostMapping("/productos/editar/post/{id}")
-    public String editarPost(@Valid Producto producto, @PathVariable String id) {
+    public String editarPost(@Valid Producto producto, @PathVariable String id, @RequestParam("file") MultipartFile file) {
 
         try {
             Producto newProducto = productoService.findById(Integer.parseInt(id));
+
+            String pathImagen = "";
+
+            if (!file.isEmpty()) {
+                pathImagen = fileService.saveFile(file);
+                newProducto.setImagen(pathImagen);
+            }
 
             Date date = new Date();
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
