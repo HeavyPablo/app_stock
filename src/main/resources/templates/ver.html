@@ -11,7 +11,7 @@
                     <div class="col-sm-12">
                         <div class="row justify-content-between">
                             <div class="col-4">
-                                <img class="img-thumbnail" src="" alt="" style="min-width: 100%">
+                                <img class="img-thumbnail" th:src="@{/files/{img}(img=${producto.imagen})}" alt="" style="min-width: 100%">
                             </div>
 
                             <div class="topbar-divider d-none d-sm-block" style="border-right: 1px solid #e3e6f0; width:0"></div>

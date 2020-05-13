@@ -19,6 +19,8 @@ public class Producto {
     private String fechaActualizacion;
     @Column
     private String nombre;
+    @Column
+    private String imagen;
     @ManyToOne
     private Categoria categoria;
 
@@ -88,5 +90,13 @@ public class Producto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

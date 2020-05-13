@@ -9,10 +9,13 @@
                 </div>
                 <div class="card-body">
                     <div class="col-sm-12">
-                        <form action="#" th:action="@{/productos/agregar/post}" method="post" th:object="${producto}">
+                        <form action="#" th:action="@{/productos/agregar/post}" method="post" th:object="${producto}" enctype="multipart/form-data">
                             <div class="row justify-content-between">
                                 <div class="col-4">
-                                    <img class="img-thumbnail" src="" alt="" style="min-width: 100%">
+                                    <div class="form-control">
+                                        <label>Imagen</label>
+                                        <input type="file" name="file">
+                                    </div>
                                 </div>
 
                                 <div class="topbar-divider d-none d-sm-block" style="border-right: 1px solid #e3e6f0; width:0"></div>

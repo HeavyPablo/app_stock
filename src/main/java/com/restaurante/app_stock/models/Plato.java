@@ -20,6 +20,8 @@ public class Plato {
     private String nombre;
     @Column
     private String tiempoPreparacion;
+    @Column
+    private String imagen;
     @ManyToMany
     private Set<Producto> productos;
 
@@ -89,5 +91,13 @@ public class Plato {
 
     public void setProductos(Set<Producto> productos) {
         this.productos = productos;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
